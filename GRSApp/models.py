@@ -48,6 +48,7 @@ class GrievanceTypes(models.Model):
     # griev_type_id = models.CharField(max_length=10, primary_key=True)
     griev_type = models.CharField(max_length=45)
 
+    @property
     def get_type(self):
         return self.griev_type
 
@@ -59,6 +60,7 @@ class Grievances(models.Model):
     griev_desc = models.CharField(max_length=255)
     griev_filed_date = models.DateTimeField(auto_now_add=True)
 
+    @property
     def get_title(self):
         return self.griev_title
 
@@ -71,5 +73,6 @@ class GrievanceDetails(models.Model):
     griev_status_desc = models.CharField(max_length=255, null=True)
     griev_st_desc_up_date = models.DateTimeField(auto_now=True)
 
+    @property
     def get_status(self):
         return self.griev_status
