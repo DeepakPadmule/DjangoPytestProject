@@ -1,13 +1,10 @@
 from django.urls import reverse, resolve
-from mixer.backend.django import mixer
 
 
 class TestUrls():
 
     def test_single_grievance_type_url(self):
         path = reverse('single_grievance_type', kwargs={'pk': "GT-0001"})
-        # print("hi...........")
-        # print(resolve(path).view_name)
         assert resolve(path).view_name == 'single_grievance_type'
 
     def test_view_all_grievance_types_url(self):
@@ -29,4 +26,3 @@ class TestUrls():
     def test_view_all_grievance_details_url(self):
         path = reverse('grievance_details')
         assert resolve(path).view_name == 'grievance_details'
-
