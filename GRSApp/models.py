@@ -41,16 +41,21 @@ def create_grievance_detail_id():
     return new_id
 
 
-# Create your models here.
-
 class GrievanceTypes(models.Model):
     griev_type_id = models.CharField(max_length=10, primary_key=True, default=create_grievance_type_id, editable=False)
-    # griev_type_id = models.CharField(max_length=10, primary_key=True)
     griev_type = models.CharField(max_length=45)
 
     @property
     def get_type(self):
         return self.griev_type
+
+    @classmethod
+    def g_s_type(cls, griev_type_id):
+        return GrievanceTypes.objects.get(griev_type_id)
+
+    @classmethod
+    def get_all_grievance_types(cls):
+        return GrievanceTypes.objects.all()
 
 
 class Grievances(models.Model):
@@ -64,10 +69,17 @@ class Grievances(models.Model):
     def get_title(self):
         return self.griev_title
 
+    @classmethod
+    def get_specific_grievance(cls, griev_id):
+        return Grievances.objects.get(griev_id)
+
+    @classmethod
+    def get_all_grievances(cls):
+        return Grievances.objects.all()
+
 
 class GrievanceDetails(models.Model):
-    griev_detail_id = models.CharField(max_length=10, primary_key=True, default=create_grievance_detail_id,
-                                       editable=False)
+    griev_detail_id = models.CharField(max_length=10, primary_key=True, default=create_grievance_detail_id, editable=False)
     griev_id = models.ForeignKey(Grievances, on_delete=models.CASCADE, null=True)
     griev_status = models.CharField(max_length=45, null=True)
     griev_status_desc = models.CharField(max_length=255, null=True)
@@ -76,3 +88,11 @@ class GrievanceDetails(models.Model):
     @property
     def get_status(self):
         return self.griev_status
+
+    @classmethod
+    def get_specific_grievance_details(cls, griev_detail_id):
+        return GrievanceDetails.objects.get(griev_detail_id)
+
+    @classmethod
+    def get_all_grievance_details(cls):
+        return GrievanceDetails.objects.all()
